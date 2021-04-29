@@ -1,12 +1,12 @@
-basePath: /api/v1/
+basePath: /api/v1
 host: localhost:8000
 info:
   contact: {}
   description: Swagger documentation API for user.
   termsOfService: http://swagger.io/terms/
-  title: API de exemplo Swagger
+  title: API Users Golang POC - VerifyMyAge Company
 paths:
-  /:
+  /health:
     get:
       consumes:
       - '*/*'
@@ -21,8 +21,75 @@ paths:
             type: object
       summary: Show the status of server.
       tags:
-      - root
-  /user:
+      - health-check
+  /users:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "204":
+          description: No Content
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Retrieves user based on given limit, name and page
+      tags:
+      - Users-endpoints
+    post:
+      parameters:
+      - description: Name user
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: int enums
+        in: query
+        name: enumint
+        type: integer
+      - description: 'int enums '
+        in: query
+        name: enumnumber
+        type: number
+      - description: 'string valida '
+        in: query
+        name: string
+        type: string
+      - description: 'int valid '
+        in: query
+        name: int
+        type: integer
+      - description: string default
+        in: query
+        name: default
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Create New User
+      tags:
+      - Users-endpoints
+  /users/{id}:
     delete:
       parameters:
       - description: User ID
@@ -38,8 +105,15 @@ paths:
           schema:
             additionalProperties: true
             type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
       summary: Delete User
-    post:
+      tags:
+      - Users-endpoints
+    get:
       parameters:
       - description: User ID
         in: path
@@ -49,12 +123,19 @@ paths:
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             additionalProperties: true
             type: object
-      summary: Create New User
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Retrieves user based on given ID
+      tags:
+      - Users-endpoints
     put:
       parameters:
       - description: User ID
@@ -70,19 +151,12 @@ paths:
           schema:
             additionalProperties: true
             type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
       summary: Update User
-  /user/{id}:
-    get:
-      parameters:
-      - description: User ID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ""
-      summary: Retrieves user based on given ID
+      tags:
+      - Users-endpoints
 swagger: "2.0"

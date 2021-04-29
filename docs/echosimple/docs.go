@@ -25,7 +25,7 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/": {
+        "/health": {
             "get": {
                 "description": "get the status of server.",
                 "consumes": [
@@ -35,7 +35,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "root"
+                    "health-check"
                 ],
                 "summary": "Show the status of server.",
                 "responses": {
@@ -49,10 +49,147 @@ var doc = `{
                 }
             }
         },
-        "/user": {
+        "/users": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users-endpoints"
+                ],
+                "summary": "Retrieves user based on given limit, name and page",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            },
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users-endpoints"
+                ],
+                "summary": "Create New User",
+                "parameters": [
+                    {
+                        "description": "Name user",
+                        "name": "name",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "int enums",
+                        "name": "enumint",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "description": "int enums ",
+                        "name": "enumnumber",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "string valida ",
+                        "name": "string",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "int valid ",
+                        "name": "int",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "string default",
+                        "name": "default",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users-endpoints"
+                ],
+                "summary": "Retrieves user based on given ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            },
             "put": {
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Users-endpoints"
                 ],
                 "summary": "Update User",
                 "parameters": [
@@ -71,26 +208,9 @@ var doc = `{
                             "type": "object",
                             "additionalProperties": true
                         }
-                    }
-                }
-            },
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Create New User",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "User ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created",
+                    },
+                    "400": {
+                        "description": "Bad Request",
                         "schema": {
                             "type": "object",
                             "additionalProperties": true
@@ -101,6 +221,9 @@ var doc = `{
             "delete": {
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Users-endpoints"
                 ],
                 "summary": "Delete User",
                 "parameters": [
@@ -119,28 +242,13 @@ var doc = `{
                             "type": "object",
                             "additionalProperties": true
                         }
-                    }
-                }
-            }
-        },
-        "/user/{id}": {
-            "get": {
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Retrieves user based on given ID",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "User ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
                     }
                 }
             }
@@ -161,9 +269,9 @@ type swaggerInfo struct {
 var SwaggerInfo = swaggerInfo{
 	Version:     "",
 	Host:        "localhost:8000",
-	BasePath:    "/api/v1/",
+	BasePath:    "/api/v1",
 	Schemes:     []string{},
-	Title:       "API de exemplo Swagger",
+	Title:       "API Users Golang POC - VerifyMyAge Company",
 	Description: "Swagger documentation API for user.",
 }
 

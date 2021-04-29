@@ -26,20 +26,20 @@ import (
 	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
-// @title API de exemplo Swagger
+// @title API Users Golang POC - VerifyMyAge Company
 // @ versão 1.0
 // @description Swagger documentation API for user.
 // @termsOfService http://swagger.io/terms/
 
-// @ contact.name API Support
-// @ contact.url http://www.swagger.io/support
-// @ contact.email support@swagger.io
+// @ contact.name Isaque Souza Ramos
+// @ contact.url https://www.linkedin.com/in/isaquesouzaramos/
+// @ contact.email isaquesouzaramos@gmail.com
 
 // @ license.name Apache 2.0
 // @ license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
 // @host localhost:8000
-// @BasePath /api/v1/
+// @BasePath /api/v1
 func main() {
 	fmt.Println("Server is running :)")
 
@@ -51,7 +51,7 @@ func main() {
 
 	echoRouter := echo.New()
 	// Routes
-	echoRouter.GET("/", HealthCheck)
+	echoRouter.GET("/health", HealthCheck)
 	echoRouter.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	echoRouter.Use(middleware.CORSWithConfig(middleware.CORSConfig{
@@ -81,11 +81,11 @@ func main() {
 // HealthCheck godoc
 // @Summary Show the status of server.
 // @Description get the status of server.
-// @Tags root
+// @Tags health-check
 // @Accept */*
 // @Produce json
 // @Success 200 {object} map[string]interface{}
-// @Router / [get]
+// @Router /health [get]
 func HealthCheck(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"data": "Server is up and running",

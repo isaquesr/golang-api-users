@@ -14,6 +14,8 @@ RUN go mod download
 COPY . .
 
 # Build the Go app
+RUN go get -u .
+#RUN swag init -g ./main.go --output docs/echosimple
 RUN go build -o ./out/svc-users-go .
 
 

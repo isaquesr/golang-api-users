@@ -2,14 +2,14 @@
     "swagger": "2.0",
     "info": {
         "description": "Swagger documentation API for user.",
-        "title": "API de exemplo Swagger",
+        "title": "API Users Golang POC - VerifyMyAge Company",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {}
     },
     "host": "localhost:8000",
-    "basePath": "/api/v1/",
+    "basePath": "/api/v1",
     "paths": {
-        "/": {
+        "/health": {
             "get": {
                 "description": "get the status of server.",
                 "consumes": [
@@ -19,7 +19,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "root"
+                    "health-check"
                 ],
                 "summary": "Show the status of server.",
                 "responses": {
@@ -33,10 +33,147 @@
                 }
             }
         },
-        "/user": {
+        "/users": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users-endpoints"
+                ],
+                "summary": "Retrieves user based on given limit, name and page",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            },
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users-endpoints"
+                ],
+                "summary": "Create New User",
+                "parameters": [
+                    {
+                        "description": "Name user",
+                        "name": "name",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "int enums",
+                        "name": "enumint",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "description": "int enums ",
+                        "name": "enumnumber",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "string valida ",
+                        "name": "string",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "int valid ",
+                        "name": "int",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "string default",
+                        "name": "default",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users-endpoints"
+                ],
+                "summary": "Retrieves user based on given ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            },
             "put": {
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Users-endpoints"
                 ],
                 "summary": "Update User",
                 "parameters": [
@@ -55,26 +192,9 @@
                             "type": "object",
                             "additionalProperties": true
                         }
-                    }
-                }
-            },
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Create New User",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "User ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created",
+                    },
+                    "400": {
+                        "description": "Bad Request",
                         "schema": {
                             "type": "object",
                             "additionalProperties": true
@@ -85,6 +205,9 @@
             "delete": {
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Users-endpoints"
                 ],
                 "summary": "Delete User",
                 "parameters": [
@@ -103,28 +226,13 @@
                             "type": "object",
                             "additionalProperties": true
                         }
-                    }
-                }
-            }
-        },
-        "/user/{id}": {
-            "get": {
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Retrieves user based on given ID",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "User ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": ""
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
                     }
                 }
             }
