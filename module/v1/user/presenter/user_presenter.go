@@ -7,6 +7,7 @@ import (
 	"svc-users-go/module/v1/user/usecase"
 	"svc-users-go/utils"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/labstack/echo/v4"
 )
 
@@ -122,6 +123,13 @@ func (uh *UserHandler) GetDetailUsers(ctx echo.Context) error {
 // @Tags Users-endpoints
 func (uh *UserHandler) CreateNewUser(ctx echo.Context) error {
 	userPayload := new(model.CreateUser)
+
+	_, err := govalidator.ValidateStruct(userPayload)
+	if err != nil {
+		return ctx.JSON(http.StatusBadRequest, echo.Map{
+			"message": err.Error(),
+		})
+	}
 
 	errorHandlerBindJSON := ctx.Bind(userPayload)
 

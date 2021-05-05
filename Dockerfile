@@ -1,4 +1,4 @@
-FROM golang:1.13-alpine
+FROM golang:1.16-alpine
 
 RUN apk add --no-cache git
 
@@ -13,14 +13,12 @@ RUN go mod download
 
 COPY . .
 
-# Build the Go app
-RUN go get -u .
 #RUN swag init -g ./main.go --output docs/echosimple
 RUN go build -o ./out/svc-users-go .
 
 
 # This container exposes port 8080 to the outside world
-EXPOSE 8081
+EXPOSE 8000
 
 # Run the binary program produced by `go install`
 CMD ["./out/svc-users-go"]

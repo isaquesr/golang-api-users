@@ -10,14 +10,6 @@ import (
 	UserRepoPackage "svc-users-go/module/v1/user/repository"
 	UserUseCasePackage "svc-users-go/module/v1/user/usecase"
 
-	RoleHandlerPackage "svc-users-go/module/v1/role/presenter"
-	RoleRepoPackage "svc-users-go/module/v1/role/repository"
-	RoleUseCasePackage "svc-users-go/module/v1/role/usecase"
-
-	AccessControlHandlerPackage "svc-users-go/module/v1/access-control/presenter"
-	AccessControlRepoPackage "svc-users-go/module/v1/access-control/repository"
-	AccessControlUseCasePackage "svc-users-go/module/v1/access-control/usecase"
-
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
@@ -51,7 +43,6 @@ func main() {
 
 	echoRouter := echo.New()
 	// Routes
-	echoRouter.GET("/health", HealthCheck)
 	echoRouter.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	echoRouter.Use(middleware.CORSWithConfig(middleware.CORSConfig{
@@ -64,30 +55,7 @@ func main() {
 	userUseCase := UserUseCasePackage.NewUserUseCase(userRepo)
 	UserHandlerPackage.NewUserHandler(echoRouter, userUseCase)
 
-	// Role modules
-	roleRepo := RoleRepoPackage.NewRoleRepository(mongoConnection)
-	roleUseCase := RoleUseCasePackage.NewRoleUseCase(roleRepo)
-	RoleHandlerPackage.NewRoleHandler(echoRouter, roleUseCase)
-
-	accessControlRepo := AccessControlRepoPackage.NewAccessControlRepository(mongoConnection)
-	accessControlUsecase := AccessControlUseCasePackage.NewAccessControlUseCase(accessControlRepo)
-	AccessControlHandlerPackage.NewAccessControlHandler(echoRouter, accessControlUsecase)
-
 	//Configuration of logger
 	echoRouter.Use(middleware.Logger())
 	echoRouter.Logger.Fatal(echoRouter.Start(":8000"))
-}
-
-// HealthCheck godoc
-// @Summary Show the status of server.
-// @Description get the status of server.
-// @Tags health-check
-// @Accept */*
-// @Produce json
-// @Success 200 {object} map[string]interface{}
-// @Router /health [get]
-func HealthCheck(c echo.Context) error {
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"data": "Server is up and running",
-	})
 }
