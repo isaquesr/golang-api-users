@@ -111,12 +111,7 @@ func (uh *UserHandler) GetDetailUsers(ctx echo.Context) error {
 // CreateNewUser godoc
 // @Summary Create New User
 // @Router /users [post]
-// @Param name body string true "Name user"
-// @Param enumint query int false "int enums" Enums (1, 2, 3)
-// @Param enumnumber query number false "int enums "Enums (1.1, 1.2, 1.3)
-// @Param string query string false "string valida "minlength (5) maxlength (10)"
-// @Param int query int false "int valid "mínimo (1) máximo (10)"
-// @Param default query string false "string default" default (A)"
+// @Param User body model.CreateUser true "User Create"
 // @Produce json
 // @Success 201 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{} StatusBadRequest
@@ -154,7 +149,8 @@ func (uh *UserHandler) CreateNewUser(ctx echo.Context) error {
 
 // UpdateUser godoc
 // @Summary Update User
-// @Param id path string true "User ID"
+// @Param id path string true "User Id"
+// @Param User body model.UpdateUser true "User Update"
 // @Router /users/{id} [put]
 // @Produce json
 // @Success 200 {object} map[string]interface{}
@@ -174,7 +170,7 @@ func (uh *UserHandler) UpdateUser(ctx echo.Context) error {
 
 	if !utils.GlobalErrorDatabaseException(errorHandlerUpdate) {
 		return ctx.JSON(http.StatusBadRequest, echo.Map{
-			"message": "Update gagal",
+			"message": "Update User",
 		})
 	}
 

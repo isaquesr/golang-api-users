@@ -28,19 +28,19 @@ type Users struct {
 // User CreateUser
 type CreateUser struct {
 	// Name user
-	Name string `json:"name" valid:"required,alpha" bson:"name" swaggertype:"string"`
+	Name string `json:"name" valid:"type(string)" bson:"name" swaggertype:"string"`
 
 	// Age user
 	Age int `json:"age" valid:"numeric" bson:"age" swaggertype:"integer"`
 
 	// Email user
-	Email string `json:"email" valid:"required,email" bson:"email" swaggertype:"string"`
+	Email string `json:"email" valid:"email" bson:"email" swaggertype:"string"`
 
 	// Password user
-	Password string `json:"password" bson:"password" swaggertype:"string"`
+	Password string `json:"password" valid:"type(string)" bson:"password" swaggertype:"string"`
 
 	// Address user
-	Address string `json:"address" bson:"address" swaggertype:"string"`
+	Address string `json:"address" valid:"type(string)" bson:"address" swaggertype:"string"`
 }
 
 // User UpdateUser

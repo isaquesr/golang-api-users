@@ -1,4 +1,41 @@
 basePath: /api/v1
+definitions:
+  model.CreateUser:
+    properties:
+      address:
+        description: Address user
+        type: string
+      age:
+        description: Age user
+        type: integer
+      email:
+        description: Email user
+        type: string
+      name:
+        description: Name user
+        type: string
+      password:
+        description: Password user
+        type: string
+    type: object
+  model.UpdateUser:
+    properties:
+      address:
+        description: Address user
+        type: string
+      age:
+        description: Age user
+        type: integer
+      email:
+        description: Email user
+        type: string
+      name:
+        description: Name user
+        type: string
+      password:
+        description: Password user
+        type: string
+    type: object
 host: localhost:8000
 info:
   contact: {}
@@ -6,22 +43,6 @@ info:
   termsOfService: http://swagger.io/terms/
   title: API Users Golang POC - VerifyMyAge Company
 paths:
-  /health:
-    get:
-      consumes:
-      - '*/*'
-      description: get the status of server.
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Show the status of server.
-      tags:
-      - health-check
   /users:
     get:
       produces:
@@ -47,32 +68,12 @@ paths:
       - Users-endpoints
     post:
       parameters:
-      - description: Name user
+      - description: User Create
         in: body
-        name: name
+        name: User
         required: true
         schema:
-          type: string
-      - description: int enums
-        in: query
-        name: enumint
-        type: integer
-      - description: 'int enums '
-        in: query
-        name: enumnumber
-        type: number
-      - description: 'string valida '
-        in: query
-        name: string
-        type: string
-      - description: 'int valid '
-        in: query
-        name: int
-        type: integer
-      - description: string default
-        in: query
-        name: default
-        type: string
+          $ref: '#/definitions/model.CreateUser'
       produces:
       - application/json
       responses:
@@ -138,11 +139,17 @@ paths:
       - Users-endpoints
     put:
       parameters:
-      - description: User ID
+      - description: User Id
         in: path
         name: id
         required: true
         type: string
+      - description: User Update
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateUser'
       produces:
       - application/json
       responses:

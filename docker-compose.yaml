@@ -1,4 +1,5 @@
 version: '3.3'
+
 services:
   crud-api:
     container_name: 'api-users'
@@ -7,3 +8,4 @@ services:
       - '8000:8000'
     volumes:
       - './:/go/src/app'
+    

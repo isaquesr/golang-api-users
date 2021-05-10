@@ -25,30 +25,6 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/health": {
-            "get": {
-                "description": "get the status of server.",
-                "consumes": [
-                    "*/*"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "health-check"
-                ],
-                "summary": "Show the status of server.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    }
-                }
-            }
-        },
         "/users": {
             "get": {
                 "produces": [
@@ -92,43 +68,13 @@ var doc = `{
                 "summary": "Create New User",
                 "parameters": [
                     {
-                        "description": "Name user",
-                        "name": "name",
+                        "description": "User Create",
+                        "name": "User",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/model.CreateUser"
                         }
-                    },
-                    {
-                        "type": "integer",
-                        "description": "int enums",
-                        "name": "enumint",
-                        "in": "query"
-                    },
-                    {
-                        "type": "number",
-                        "description": "int enums ",
-                        "name": "enumnumber",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "string valida ",
-                        "name": "string",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "int valid ",
-                        "name": "int",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "string default",
-                        "name": "default",
-                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -195,10 +141,19 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "User ID",
+                        "description": "User Id",
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "description": "User Update",
+                        "name": "User",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UpdateUser"
+                        }
                     }
                 ],
                 "responses": {
@@ -250,6 +205,58 @@ var doc = `{
                             "additionalProperties": true
                         }
                     }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.CreateUser": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "description": "Address user",
+                    "type": "string"
+                },
+                "age": {
+                    "description": "Age user",
+                    "type": "integer"
+                },
+                "email": {
+                    "description": "Email user",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name user",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "Password user",
+                    "type": "string"
+                }
+            }
+        },
+        "model.UpdateUser": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "description": "Address user",
+                    "type": "string"
+                },
+                "age": {
+                    "description": "Age user",
+                    "type": "integer"
+                },
+                "email": {
+                    "description": "Email user",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name user",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "Password user",
+                    "type": "string"
                 }
             }
         }
