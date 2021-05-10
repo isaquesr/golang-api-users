@@ -1,0 +1,91 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Users-GO",
+		"_postman_id": "052e4948-3dcd-92a5-4e1d-92fd38bdc87a",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST Users",
+			"request": {
+				"url": "http://localhost:8000/api/v1/users",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\r\n\t\t\"name\": \"daniel\",\r\n\t\t\"age\": 18,\r\n\t\t\"email\": \"email@gmail.com\",\r\n\t\t\"password\": \"123\",\r\n\t\t\"address\": \"rua test address, 45\"\r\n\t}\r\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET allUsers",
+			"request": {
+				"url": "",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET health-check",
+			"request": {
+				"url": "",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Users by ID",
+			"request": {
+				"url": "http://172.25.0.3:8000/api/v1/users/607a1957c13f994711b45f68",
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE User",
+			"request": {
+				"url": "http://localhost:8000/api/v1/users/607a1957c13f994711b45f68",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"role_name\": \"Acesso ao menu\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

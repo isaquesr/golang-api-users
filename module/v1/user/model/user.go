@@ -28,7 +28,7 @@ type Users struct {
 // User CreateUser
 type CreateUser struct {
 	// Name user
-	Name string `json:"name" valid:"type(string)" bson:"name" swaggertype:"string"`
+	Name string `json:"name" valid:"-" bson:"name" swaggertype:"string"`
 
 	// Age user
 	Age int `json:"age" valid:"numeric" bson:"age" swaggertype:"integer"`

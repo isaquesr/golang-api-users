@@ -119,12 +119,14 @@ func (uh *UserHandler) GetDetailUsers(ctx echo.Context) error {
 func (uh *UserHandler) CreateNewUser(ctx echo.Context) error {
 	userPayload := new(model.CreateUser)
 
-	_, err := govalidator.ValidateStruct(userPayload)
+	result, err := govalidator.ValidateStruct(userPayload)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, echo.Map{
 			"message": err.Error(),
 		})
 	}
+
+	println(result)
 
 	errorHandlerBindJSON := ctx.Bind(userPayload)
 
