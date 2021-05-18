@@ -4,16 +4,14 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func MongoConnection() (*mongo.Database, error) {
-	connectionString := os.Getenv("DB_URL")
 	// Set client options
-	clientOptions := options.Client().ApplyURI(connectionString)
+	clientOptions := options.Client().ApplyURI("mongodb+srv://isr_adm:teste123@isr-consulting.hiy9a.gcp.mongodb.net/poc-user?retryWrites=true&w=majority")
 
 	// Connect to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)

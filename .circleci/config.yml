@@ -36,9 +36,7 @@ jobs: # basic units of work in a run
 
       - run:
           name: Start service
-          environment:
-            DB_URL: "mongodb+srv://isr_adm:teste123@isr-consulting.hiy9a.gcp.mongodb.net/poc-user?retryWrites=true&w=majority"
-          command: docker-compose -f "docker-compose.yaml" up -d --build
+          command: go run main.go
           background: true # keep service running and proceed to next step
 
       - run:
