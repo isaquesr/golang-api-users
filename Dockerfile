@@ -14,11 +14,11 @@ RUN go mod download
 COPY . .
 
 #RUN swag init -g ./main.go --output docs/echosimple
-RUN go build -o ./out/svc-users-go .
+RUN go build -o ./workdir/svc-users-go .
 
 
 # This container exposes port 8080 to the outside world
 EXPOSE 8000
 
 # Run the binary program produced by `go install`
-CMD ["./out/svc-users-go"]
+CMD ["./workir/svc-users-go"]

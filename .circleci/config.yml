@@ -3,7 +3,7 @@ jobs: # basic units of work in a run
   build: # runs not using Workflows must have a `build` job as entry point
     docker: # run the steps with Docker
       # CircleCI Go images available at: https://hub.docker.com/r/circleci/golang/
-      - image: circleci/golang:1.12     
+      - image: circleci/golang:1.14.6     
 
     parallelism: 2
 
@@ -21,7 +21,7 @@ jobs: # basic units of work in a run
       - run:
           name: Run unit tests
           environment: # environment variables for the database url and path to migration files
-            CONTACTS_DB_URL: "mongodb+srv://isr_adm:teste123@isr-consulting.hiy9a.gcp.mongodb.net/poc-user?retryWrites=true&w=majority"
+            DB_URL: "mongodb+srv://isr_adm:teste123@isr-consulting.hiy9a.gcp.mongodb.net/poc-user?retryWrites=true&w=majority"
 
           # store the results of our tests in the $TEST_RESULTS directory
           command: |
@@ -38,7 +38,7 @@ jobs: # basic units of work in a run
           name: Start service
           environment:
             DB_URL: "mongodb+srv://isr_adm:teste123@isr-consulting.hiy9a.gcp.mongodb.net/poc-user?retryWrites=true&w=majority"
-          command: ./workdir/svc-users-go
+          command: docker-compose -f "docker-compose.yaml" up -d --build
           background: true # keep service running and proceed to next step
 
       - run:
