@@ -38,7 +38,7 @@ jobs: # basic units of work in a run
           name: Start service
           environment:
             DB_URL: "mongodb+srv://isr_adm:teste123@isr-consulting.hiy9a.gcp.mongodb.net/poc-user?retryWrites=true&w=majority"
-          command: ./workdir/users
+          command: ./workdir/svc-users-go
           background: true # keep service running and proceed to next step
 
       - run:
